@@ -1,9 +1,7 @@
 import os
 import openai
 import streamlit as st
-import time
 from googletrans import Translator
-from openai import *
 translator = Translator()
 
 openai.api_key = "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"
