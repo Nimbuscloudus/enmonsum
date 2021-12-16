@@ -22,11 +22,11 @@ with col3:
         context_text = st.text_input(label = "Бичвэрийн сэдэв болон санааг товчоор тайлбарлана уу?? \n", max_chars = 150)
         prompt_text = st.text_area(label = "Гол санаа гаргах бичвэрийг оруулна уу?:\n", max_chars=1200) + "\n tl;dr: \n"
 
-        st.slider("Хэр оновчтой байх вэ? (чөлөөт бичлэг = 1, албан бичиг = 0)", 0, 1)
-
+        number = st.slider("Хэр оновчтой байх вэ? (чөлөөт бичлэг = 1, албан бичиг = 0)", 0, 100)
+        number = number / 100
         if st.button("Эхлэх"):        
             merged_text = str(f"This writing is about:\n{context_text}\n\n\n"+prompt_text)
-            response = openai.Completion.create(engine="curie", prompt=merged_text, max_tokens=50, echo=False, temperature=0.5)
+            response = openai.Completion.create(engine="curie", prompt=merged_text, max_tokens=50, echo=False, temperature=number)
             response = response.choices[0].text
             translations = translator.translate(response, dest='mn')
             with col4:
