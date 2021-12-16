@@ -4,7 +4,7 @@ import streamlit as st
 from googletrans import Translator
 translator = Translator()
 
-openai.api_key = "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"
+openai.api_key = "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"
 
 col1, col2 = st.columns(2)
 with col1:
