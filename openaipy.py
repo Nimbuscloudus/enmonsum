@@ -7,7 +7,7 @@ translator = Translator()
 
 
 
-#INSERT API KEY HERE
+#YOUR API KEY HERE
 openai.api_key = "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"
 
 
@@ -26,13 +26,23 @@ col3, col4 = st.columns(2)
 with col4:
         st.write("Гол санаа таамаглалт (Summarization) ↓")
 with col3:
+        with st.expander("Instructions on obtaining an API key"):
+         st.write("""
+            1. Go to beta.openai.com
+            2. Create an account
+            3. On the upper right corner, click on your user profile picture.
+            4. From the drop down menu, select "View API Keys"
+            5. Copy paste your own API key instead of the one on the openaipy.py file.
+            6. Run streamlit locally after adjusting API key.
+         """)
+
         context_text = st.text_input(label = "Бичвэрийн сэдэв болон санааг товчоор тайлбарлана уу? (Describe the topic of the writing in short) \n", max_chars = 150)
         prompt_text = st.text_area(label = "Гол санаа гаргах бичвэрийг оруулна уу? (Paste/write the intended writing for summarization):\n", max_chars=1200) + "\n tl;dr: \n"
 
         number = st.slider("Хэр оновчтой байх вэ? (Accuracy/Creativity) (чөлөөт бичлэг = 1, албан бичиг = 0)", 0, 100)
         number = number / 100
         if st.button("Эхлэх"):        
-            merged_text = str(f"This writing is about:\n{context_text}\n\n\n"+prompt_text)
+            merged_text = str(f"This writing is about:{context_text}"+prompt_text)
             response1 = openai.Completion.create(engine="curie", prompt=merged_text, max_tokens=150, echo=False, temperature=number)
             response = openai.Completion.create(
               engine="content-filter-alpha",
